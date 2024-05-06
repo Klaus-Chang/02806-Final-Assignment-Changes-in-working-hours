@@ -1,0 +1,437 @@
+/* 隐藏所有浏览器的滚动条 */
+html, body {
+    background-color: rgb(149, 14, 13); /* 设置背景颜色 */
+    width: 100%;   /* 确保充满整个视口的宽度 */
+    height: 100%;  /* 确保充满整个视口的高度 */
+    margin: 0;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+html::-webkit-scrollbar {
+    width: 0; /* Chrome, Safari, Opera新版本 */
+    height: 0;
+}
+
+.no-scroll {
+    overflow: hidden;  /* 禁止滚动 */
+}
+
+.fixed {
+    position: fixed;
+    bottom: 0;
+    width: 100%; // 确保图片宽度与视口宽度一致
+}
+
+
+/* 定义一个淡入动画 */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* 定义一个类，当添加到元素上时会触发淡入动画 */
+.fade-in-animation {
+    animation: fadeIn 1.5s ease-in-out forwards;
+}
+
+/* 初始化文本样式 */
+.click-to-start {
+    font-size: 70px;
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 2s ease-in-out, color 0.3s ease-in-out;
+}
+
+/* 在鼠标悬停时添加发光效果 */
+.click-to-start:hover {
+    cursor: pointer;
+    color: #ffffff;
+    text-shadow:
+        0 0 10px #ffffff, /* 白色光晕 */
+        0 0 20px #ffffff, /* 白色光晕 */
+        0 0 30px #ff00ff, /* 紫色光晕 */
+        0 0 40px #ff00ff, /* 紫色光晕 */
+        0 0 50px #ff00ff, /* 紫色光晕 */
+        0 0 60px #ff00ff, /* 紫色光晕 */
+        0 0 70px #ff00ff; /* 紫色光晕 */
+}
+
+/* 创建一个Grid容器并使其子项居中 */
+body {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  grid-template-areas: "content";
+  place-items: center; /* 水平和垂直居中 */
+  min-height: 100vh; /* 确保至少占满整个视口的高度 */
+  min-width: 100vw;  /* 确保至少占满整个视口的宽度 */
+padding-bottom: 0; /* 为底部导航栏留出空间 */
+}
+
+#sitelogo {
+  width: 40%;
+  height: 40%; /* 调整高度为自动，以保持图像的比例 */
+  object-fit: contain;
+}
+
+#loadingScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(149, 14, 13);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 2001; /* 确保 loadingScreen 在其他内容之上 */
+}
+
+.spinner {
+    animation: rotator 1.4s linear infinite;
+}
+
+@keyframes rotator {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(270deg); }
+}
+
+.path {
+    stroke-dasharray: 187;
+    stroke-dashoffset: 0;
+    transform-origin: center;
+    animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite;
+}
+
+@keyframes colors {
+    0% { stroke: #4285F4; }
+    25% { stroke: #DE3E35; }
+    50% { stroke: #F7C223; }
+    75% { stroke: #1B9A59; }
+    100% { stroke: #4285F4; }
+}
+
+@keyframes dash {
+    0% { stroke-dashoffset: 187; }
+    50% {
+        stroke-dashoffset: 46.75; /* 187 / 4 */
+        transform: rotate(135deg);
+    }
+    100% {
+        stroke-dashoffset: 187;
+        transform: rotate(450deg);
+    }
+}
+
+#loadingScreen div {
+    pointer-events: none; /* 防止此div捕捉点击事件，允许点击事件通过 */
+}
+
+.sitelogo{grid-area: content;}
+
+.page {
+  width: 80%;
+  height: 60vh; /* 保持一个视口的高度 */
+  position: relative;
+  text-align: center; /* 确保文本居中，如果内部元素是inline或inline-block */
+  margin-bottom: 50vh; /* Add a bottom margin */
+}
+
+.pagee {
+  width: 80%;
+  position: relative;
+  text-align: center; /* 确保文本居中，如果内部元素是inline或inline-block */
+}
+
+#page1 h1 {    
+    font-family: Agency FB;
+    font-size: 80px;
+    color: white;
+    font-weight: bold;
+        position: relative;  // 确保h1能响应transform
+    transition: opacity 0.1s ease-out, transform 0.1s ease-out; // 添加transform的平滑过渡
+}
+
+#page2 h1 {    
+    font-family: Agency FB;
+    font-size: 145px;
+    color: white;
+    font-weight: bold;
+    position: relative;  // 确保h1能响应transform
+    transition: opacity 0.1s ease-out, transform 0.1s ease-out;}
+
+.Mix{
+  max-width: 100%;  /* 最大宽度为容器的100% */
+  height: auto;
+  position: relative;
+  object-fit: contain; /* 保证图片完整显示在容器内 */
+}
+
+#page3 h2 {    
+ text-align: left; /* 文字靠左对齐 */
+
+     font-family: "Microsoft YaHei Light", "Microsoft YaHei";
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+    position: relative;  // 确保h1能响应transform
+    transition: opacity 0.1s ease-out, transform 0.1s ease-out;
+    margin-left: 50px;  // 左边的外边距是50px
+    margin-right: 50px;  // 右边的外边距是50px
+}
+
+#page4 h1{  
+    font-family: Agency FB;
+    font-size: 80px;
+    color: white;
+    font-weight: bold;
+    position: relative;  // 确保h1能响应transform
+}
+
+#page9 h1,  #page11 h1{  
+    font-family: Agency FB;
+    font-size: 80px;
+    color: white;
+    font-weight: bold;
+    position: relative;  // 确保h1能响应transform
+}
+
+
+
+#page8 h1, #page10 h1{  
+    font-family: Agency FB;
+    font-size: 80px;
+    color: white;
+    font-weight: bold;
+    position: relative;  // 确保h1能响应transform
+}
+
+#page8 h2,#page9 h2,#page10 h2{  
+   margin-bottom: 15vh; /* Add a bottom margin */
+   text-align: left; /* 文字靠左对齐 */
+    font-family: "Microsoft YaHei Light", "Microsoft YaHei";
+    font-size: 24px;
+    color: white;
+    margin-bottom: 60vh; /* Add a bottom margin */
+}
+
+.vp1{margin-bottom: 15vh; /* Add a bottom margin */
+   text-align: left; /* 文字靠左对齐 */
+    font-family:  "Microsoft YaHei";
+    font-size: 24px;
+    color: white;}
+
+#page11 h2,#page11 h3{  
+  position: relative;  // 确保h1能响应transform
+   margin-bottom: 15vh; /* Add a bottom margin */
+ text-align: center; /* 文字靠左对齐 */
+      font-size: 40px;
+    color: white;
+    font-weight: bold;
+font-family: Agency FB;
+}
+
+
+#page5 h1{  
+    font-family: Agency FB;
+    font-size: 80px;
+    color: white;
+    font-weight: bold;
+    position: relative;  // 确保h1能响应transform
+    transition: opacity 0.1s ease-out, transform 0.1s ease-out;
+    margin-bottom: 20vh; /* Add a bottom margin */
+}
+
+#page4 h2 {   
+    height: 50vh; /* 保持一个视口的高度 */
+    margin-bottom: 30vh; /* Add a bottom margin */
+ text-align: center; /* 文字靠左对齐 */
+     font-family: "Microsoft YaHei Light", "Microsoft YaHei";
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+}
+
+#page6 h1 {   
+ text-align: left; /* 文字靠左对齐 */
+     font-family: "Microsoft YaHei Light", "Microsoft YaHei";
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+    position: relative;  // 确保h1能响应transform
+    transition: opacity 0.1s ease-out, transform 0.1s ease-out;
+    margin-bottom: 60vh; /* Add a bottom margin */
+}
+
+#page7 h2 {   
+   margin-bottom: 15vh; /* Add a bottom margin */
+ text-align: center; /* 文字靠左对齐 */
+    font-family: Pristina;
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+}
+
+#page12 h1{  
+    font-family: Agency FB;
+    font-size: 80px;
+    color: white;
+    font-weight: bold;
+}
+
+#page13 h1{  
+    font-family: Agency FB;
+    font-size: 80px;
+    color: white;
+    font-weight: bold;
+}
+
+#page14 {  
+text-align: center;
+position: relative; /* 或 absolute 或 fixed */
+}
+
+#page14 {  
+   margin-bottom: 10vh; /* Add a bottom margin */
+}
+
+#page15 h2 {  
+   margin-bottom: 5vh; /* Add a bottom margin */
+text-align: center;
+    font-family: Agency FB;
+    font-size: 40px;
+    color: white;
+    font-weight: bold;
+position: relative; /* 或 absolute 或 fixed */
+}
+
+#page15 h3 {
+    width: 60%;  /* 将宽度设置为 100%，充满整个视口的宽度 */
+margin: 0 auto;  /* 保持此设置确保居中 */
+    margin-top: -3vh; /* 底部边距 */
+    margin-bottom: 3vh; /* 底部边距 */
+    text-align: center;  /* 文字居中对齐 */
+    font-family: Agency FB;
+    font-size: 22px;
+    color: white;
+    font-weight: bold;
+    position: relative; /* 或 absolute 或 fixed */
+}
+
+#page12 h2 {   
+ text-align: left; /* 文字靠左对齐 */
+     font-family: "Microsoft YaHei Light", "Microsoft YaHei";
+    font-size: 24px;
+    color: white;
+    font-weight: bold;    margin-bottom: 15vh; /* Add a bottom margin */
+}
+
+.container {
+    height: 30vh; /* 固定高度为视口的80% */
+    overflow: auto; /* 如果内容超出高度，则显示滚动条 */
+}
+
+  #frame1 {
+    background-color: white;
+    margin-bottom: 10vh; /* Add a bottom margin */
+  }
+
+#frame2 {
+    background-color: white;
+   margin-bottom: 10vh; /* Add a bottom margin */
+  }
+
+#v1{ margin-bottom: 10vh; /* Add a bottom margin */}
+
+#v2{ margin-bottom: 10vh; /* Add a bottom margin */}
+
+#v3{ margin-bottom: 10vh; /* Add a bottom margin */}
+
+
+/* 当鼠标悬停在图片上时，改变图片的大小 */
+#owid:hover {
+  width: 104px; /* 原始宽度，根据需要调整 */
+  height: 57px; /* 原始高度，根据需要调整 */
+}
+
+/* 当鼠标悬停在图片上时，改变图片的大小 */
+#dk:hover,#AU:hover,#USA:hover,#CA:hover, #JP:hover {
+  width: 125px; /* 原始宽度，根据需要调整 */
+  height: 85px; /* 原始高度，根据需要调整 */
+}
+
+
+
+/* 当鼠标悬停在图片上时，改变图片的大小 */
+#cn:hover {
+  width: 125px; /* 原始宽度，根据需要调整 */
+  height: 85px; /* 原始高度，根据需要调整 */
+}
+
+    /* 当鼠标悬停时应用滤镜效果 */
+    #chekhov:hover {
+        filter: sepia(100%); /* 添加棕色滤镜 */
+      transition: filter 0.5s; /* 添加过渡效果 */
+    }
+
+    /* 当鼠标悬停时应用滤镜效果 */
+    #chekhov{
+      transition: filter 0.5s; /* 添加过渡效果 */
+    }
+
+    #GPT:hover, #Heroku:hover,#DTU:hover,#Copilot:hover, #owidd:hover{
+    }
+
+
+
+.nav-dots {
+    display: none;  /* 初始不显示 */
+    position: fixed;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2024; /* 确保导航点在 loadingScreen 之上 */
+}
+
+.dot {
+    display: block;
+    height: 15px;
+    width: 15px;
+    background-color: #bbb;
+    border-radius: 50%;
+    margin: 9px 0;
+}
+
+.active {
+    background-color: #FFF;
+}
+
+.controls {
+    display: none;  /* 初始不显示 */
+    background-color: #333;  /* 深色背景 */
+    position: fixed;  /* 固定位置，始终可见 */
+    bottom: 0;  /* 定位到底部 */
+    left: 50%;  /* 定位到屏幕中央 */
+    transform: translateX(-50%);  /* 通过transform属性进行水平居中 */
+    width: 100%;  /* 根据按钮内容自适应宽度 */
+    height: 30px;
+    z-index: 2024; /* 确保控制按钮在其他内容之上 */
+    text-align: center; /* 文本居中对齐 */
+}
+
+.controls button {
+    background-color: #333;  /* 深色背景 */
+    font-family: Agency FB;
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+    margin: 0 10px;
+}
