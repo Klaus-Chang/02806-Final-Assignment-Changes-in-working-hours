@@ -8,7 +8,7 @@ layout: clean
 
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/style.css?v=20240508">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 <title>CHANGES IN WORKING HOUR</title>
 </head>
