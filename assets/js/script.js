@@ -187,40 +187,45 @@ document.body.appendChild(clickToStartDiv);  // 添加到文档中以显示该�
     });
 });
 
-// 视差滚动效果
+
+function updateScaleAndOpacity(pageId, viewportHeight, scrollY) {
+    var page = document.getElementById(pageId);
+    var pageRect = page.getBoundingClientRect();
+    var pageTop = pageRect.top + scrollY;
+    var pageHeight = pageRect.height;
+    var pageMid = pageTop + (pageHeight / 2);
+    var viewportMid = scrollY + (viewportHeight / 2);
+    var distanceToMid = Math.abs(viewportMid - pageMid); 
+
+    // 如果页面中心未离开视口中心，保持原大小
+    if (distanceToMid < viewportHeight / 2) {
+        page.style.opacity = 1;
+        page.style.transform = 'scale(1)';
+    } else {
+        var excessDistance = distanceToMid - viewportHeight / 2;
+        var scale = Math.max(1 - (excessDistance), 0.5);
+        page.style.opacity = scale * 2; // 逐渐减少透明度
+        page.style.transform = `scale(0.5)`;
+    }
+}
+
 // 视差滚动效果
 window.addEventListener('scroll', function() {
     var scrollY = window.pageYOffset || document.documentElement.scrollTop;
     var viewportHeight = window.innerHeight;
 
-    // 计算缩放比例，设置最小缩放限制为0.5
-    var scale = Math.max(1 - Math.min(scrollY / viewportHeight, 1), 0.5);
+    // 对 sitelogo 的处理逻辑保持不变
     var sitelogo = document.getElementById('sitelogo');
-    sitelogo.style.transform = `scale(${scale})`;
+    var sitelogoScale = Math.max(1 - Math.min(scrollY / viewportHeight, 1), 0.5);
+    sitelogo.style.transform = `scale(${sitelogoScale})`;
 
-    // 控制 page1 的缩放和淡出效果
-    var page1 = document.getElementById('page1');
-    var page1Scale = Math.max(1 - Math.min((scrollY - viewportHeight * 0.5) / viewportHeight, 0.5), 0.5);
-    if (scrollY >= viewportHeight * 0.5 && scrollY < viewportHeight * 1.5) {
-        page1.style.opacity = page1Scale * 2; // 逐渐减少透明度
-        page1.style.transform = 'scale(' + page1Scale + ')';
-    } else {
-        page1.style.opacity = 0;
-    }
+    // 处理 page1 缩放和透明度
+    updateScaleAndOpacity('page1', viewportHeight, scrollY);
 
-    // 控制 page2 的缩放和淡出效果
-    var page2 = document.getElementById('page2');
-    var page2Scale = Math.max(1 - Math.min((scrollY - viewportHeight * 1.5) / viewportHeight, 0.5), 0.5);
-    if (scrollY >= viewportHeight * 1.5 && scrollY < viewportHeight * 2.5) {
-        page2.style.opacity = page2Scale * 2; // 逐渐减少透明度
-        page2.style.transform = 'scale(' + page2Scale + ')';
-    } else {
-        page2.style.opacity = 0;
-    }
+    // 处理 page2 缩放和透明度
+    updateScaleAndOpacity('page2', viewportHeight, scrollY);
 
-     var page2Bottom = page2.offsetTop + page2.offsetHeight;
-
-
+    var page2Bottom = page2.offsetTop + page2.offsetHeight;
 
     // 控制 Mix 图片的淡入效果
     var img1 = document.getElementById('img1');

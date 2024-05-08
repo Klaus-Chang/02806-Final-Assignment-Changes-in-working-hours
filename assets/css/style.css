@@ -1,9 +1,9 @@
 /* 隐藏所有浏览器的滚动条 */
 html, body {
-    background-color: rgb(149, 14, 13); /* 设置背景颜色 */
     width: 100%;   /* 确保充满整个视口的宽度 */
     height: 100%;  /* 确保充满整个视口的高度 */
     margin: 0;
+    background-color: rgb(149, 14, 13); /* 设置背景颜色 */
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* Internet Explorer 10+ */
 }
@@ -15,6 +15,14 @@ html::-webkit-scrollbar {
 
 .no-scroll {
     overflow: hidden;  /* 禁止滚动 */
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    height: auto; // 设置为 auto 以适应内容高度
 }
 
 .fixed {
@@ -63,21 +71,16 @@ html::-webkit-scrollbar {
         0 0 70px #ff00ff; /* 紫色光晕 */
 }
 
-/* 创建一个Grid容器并使其子项居中 */
-body {
-  display: grid;
-  grid-template-rows: 1fr auto;
-  grid-template-areas: "content";
-  place-items: center; /* 水平和垂直居中 */
-  min-height: 100vh; /* 确保至少占满整个视口的高度 */
-  min-width: 100vw;  /* 确保至少占满整个视口的宽度 */
-padding-bottom: 0; /* 为底部导航栏留出空间 */
-}
-
 #sitelogo {
-  width: 40%;
-  height: 40%; /* 调整高度为自动，以保持图像的比例 */
+  width: 20%;
   object-fit: contain;
+  display: block;
+  margin: 0 auto;  // 自动计算左右边距实现居中
+  height: auto;  // 保持高度自动以保持纵横比
+  max-width: 100%;  // 防止图片超出其容器
+  text-align: center;  /* 确保文本内容居中 */
+  margin-top: 25vh; /* Add a bottom margin */
+  margin-bottom: 50vh; /* Add a bottom margin */
 }
 
 #loadingScreen {
@@ -135,8 +138,6 @@ padding-bottom: 0; /* 为底部导航栏留出空间 */
     pointer-events: none; /* 防止此div捕捉点击事件，允许点击事件通过 */
 }
 
-.sitelogo{grid-area: content;}
-
 .page {
   width: 80%;
   height: 60vh; /* 保持一个视口的高度 */
@@ -153,20 +154,25 @@ padding-bottom: 0; /* 为底部导航栏留出空间 */
 
 #page1 h1 {    
     font-family: Agency FB;
-    font-size: 80px;
+    font-size: 75px;
     color: white;
     font-weight: bold;
-        position: relative;  // 确保h1能响应transform
+    position: relative;  // 确保h1能响应transform
     transition: opacity 0.1s ease-out, transform 0.1s ease-out; // 添加transform的平滑过渡
+    width: auto;  /* 或者给一个百分比宽度，但保证不会太宽 */
+    text-align: center;  /* 确保文本内容居中 */
 }
 
 #page2 h1 {    
     font-family: Agency FB;
-    font-size: 145px;
+    font-size: 125px;
     color: white;
     font-weight: bold;
     position: relative;  // 确保h1能响应transform
-    transition: opacity 0.1s ease-out, transform 0.1s ease-out;}
+    transition: opacity 0.1s ease-out, transform 0.1s ease-out;
+    width: auto;  /* 或者给一个百分比宽度，但保证不会太宽 */
+    text-align: center;  /* 确保文本内容居中 */
+}
 
 .Mix{
   max-width: 100%;  /* 最大宽度为容器的100% */
