@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
    nameButton.addEventListener('click', function() {
-        window.open('https://www.instagram.com/denmarkpie/', '_blank'); // 在新标签页中打开 URL
+        window.open('https://www.instagram.com/daniel_denmarkpie/', '_blank'); // 在新标签页中打开 URL
     });
 
 
